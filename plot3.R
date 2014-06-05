@@ -16,7 +16,9 @@ dt <- fread(fn, sep=";", header = TRUE, colClasses = "character",
 #Subset Data Table For Feb 1, 2007 and Feb 2, 2007
 #and also Check For Empty Fields (denoted by '?')
 dt <- dt[(dt$Date == "1/2/2007" | dt$Date == "2/2/2007")
-         & dt$Global_active_power != "?"]
+         & (dt$Sub_metering_1 != "?"
+            | dt$Sub_metering_2 != "?"
+            | dt$Sub_metering_3 != "?")]
 
 #Convert the 3 Sub_metering Column To Numeric to Use With Plot
 dt$Sub_metering_1 <- as.numeric(dt$Sub_metering_1)
@@ -32,10 +34,10 @@ date_coll <- as.POSIXlt(date_coll) #Convert To Date Time Class
 png(file="plot3.png")
 
 #First Line, with plot parameters
-plot(date_coll, dt$Sub_metering_1,
+with(dt, plot(date_coll, Sub_metering_1,
      type="l",
      ylab = "Energy sub metering",
-     xlab = "")
+     xlab = ""))
 
 # Sub_Metering 2 and 3 lines
 lines(date_coll, dt$Sub_metering_2, col="red")
