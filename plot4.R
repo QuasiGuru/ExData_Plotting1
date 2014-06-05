@@ -39,7 +39,7 @@ date_coll <- paste(date_coll,dt$Time,sep=" ") #Add Time
 date_coll <- as.POSIXlt(date_coll) #Convert To Date Time Class
 
 #Create Line Graphs and Save it as a PNG file
-#png(file="plot4.png")
+png(file="plot4.png")
 
 par(mfrow = c(2, 2))
 
@@ -79,4 +79,4 @@ with (dt, plot(date_coll, Global_reactive_power,
                type="l",
                xlab = "datetime"))
 
-#dev.off()
+dev.off()

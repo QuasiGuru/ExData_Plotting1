@@ -8,7 +8,7 @@
 library(data.table)
 library(datasets)
 
-#Read File Into Data Table (all columns read as strings)
+#Read Local File Into Data Table (all columns read as strings)
 fn <- "data/household_power_consumption.txt"
 dt <- fread(fn, sep=";", header = TRUE, colClasses = "character",
             showProgress= FALSE)
