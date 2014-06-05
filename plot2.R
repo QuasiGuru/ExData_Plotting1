@@ -8,7 +8,7 @@
 library(data.table)
 library(datasets)
 
-#Read File Into Data Table (all columns read as strings)
+#Read Local File Into Data Table (all columns read as strings)
 fn <- "data/household_power_consumption.txt"
 dt <- fread(fn, sep=";", header = TRUE, colClasses = "character",
             showProgress= FALSE)
@@ -21,15 +21,15 @@ dt <- dt[(dt$Date == "1/2/2007" | dt$Date == "2/2/2007")
 #Convert Global_active_power Column To Numeric to Use With Plot
 dt$Global_active_power <- as.numeric(dt$Global_active_power)
 
-#Get Date and Time
+#Get Date and Time and Add To Data Table
 date_coll <- strptime(dt$Date,"%d/%m/%Y") #Corrected Format
 date_coll <- paste(date_coll,dt$Time,sep=" ") #Add Time
 date_coll <- as.POSIXlt(date_coll) #Convert To Date Time Class
 
 #Create Line Graph and Save it as a PNG file
 png(file="plot2.png")
-plot(date_coll, dt$Global_active_power,
+with(dt,plot(date_coll, Global_active_power,
      type="l",
      ylab = "Global Active Power (kilowatts)",
-     xlab = "")
+     xlab = ""))
 dev.off()
